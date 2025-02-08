@@ -1,0 +1,157 @@
+var canvas = document.createElement("canvas");
+var ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+document.body.appendChild(canvas);
+
+var count = 0;
+
+
+class Square {
+    constructor({position, velocity}, color) {
+        this.position = position;
+        this.velocity = velocity;
+        this.width = 60;
+        this.height = 60;
+        this.color = color;
+    }
+
+    draw() {
+        ctx.beginPath();
+        ctx.rect(this.position.x, this.position.y, this.width, this.height);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    update() {
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+
+       if (this.position.x + this.width > canvas.width) {
+            this.velocity.x = -this.velocity.x;
+        }
+
+        if (this.position.x - this.width < canvas.width - canvas.width - 65) {
+            this.velocity.x = -this.velocity.x;
+        }
+
+        if (this.position.y + this.height > canvas.height) {
+            this.velocity.y = 0;
+        }
+
+        if (this.position.y - this.height < canvas.height - 440) {
+            this.velocity.y = 0;
+        }
+
+    }
+}
+
+
+const square = new Square({
+    position: {
+        x: canvas.width / 2,
+        y: 5
+    },
+
+    velocity: {
+        x: 6,
+        y: 0
+    }
+}, "red");
+
+
+const square2 = new Square({
+    position: {
+        x: canvas.width / 2,
+        y: 5
+    },
+
+    velocity: {
+        x: 5,
+        y: 0
+    }
+}, "indigo");
+
+
+const square3 = new Square({
+    position: {
+        x: canvas.width / 2,
+        y: 5
+    },
+
+    velocity: {
+        x: 2.5,
+        y: 0
+    }
+}, "pink");
+
+const square4 = new Square({
+    position: {
+        x: canvas.width / 2,
+        y: 5
+    },
+
+    velocity: {
+        x: 2,
+        y: 0
+    }
+}, "lightblue");
+
+const square5 = new Square({
+    position: {
+        x: canvas.width / 2,
+        y: 5
+    },
+
+    velocity: {
+        x: 0.9,
+        y: 0
+    }
+}, "green");
+
+
+function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    square.draw();
+    square.update();  
+    square2.draw();
+    square2.update();
+    square3.draw();
+    square3.update();
+    square4.draw();
+    square4.update();
+    square5.draw();
+    square5.update();
+
+document.addEventListener("keypress", ({key}) => {
+    switch(key) {
+        case ' ':
+        square.velocity.y = 6;
+        square2.velocity.y = 6;
+        square3.velocity.y = 6;
+        square4.velocity.y = 6;
+        square5.velocity.y = 6;
+        break;
+        case 'x':
+        square.velocity.y = -6;
+        square2.velocity.y = -6;
+        square3.velocity.y = -6;
+        square4.velocity.y = -6;
+        square5.velocity.y = -6;
+        break;
+
+    }
+});
+
+
+
+}
+function startSim() {
+    animate();
+    document.getElementById("start").style.display = "none";
+    alert("Use Space to add gravity to the blocks & X to remove gravity");
+}
+
+
