@@ -1,0 +1,16 @@
+body 
+{
+	background-color: grey;
+	justify-items: center;
+	align-items: center;
+}
+
+#start {
+	color: white;
+	background-color: darkgreen;
+	border: 5px solid darkgreen;
+}
+
+#start:hover {
+	cursor: pointer;
+}
